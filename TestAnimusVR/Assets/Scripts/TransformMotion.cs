@@ -3,7 +3,6 @@ using UnityEngine.Networking;
 
 public class TransformMotion : NetworkBehaviour
 {
-
     [SyncVar]
     private Vector3 syncPos;
 
@@ -22,24 +21,25 @@ public class TransformMotion : NetworkBehaviour
     [SyncVar]
     private float syncChildXRot;
 
-    private Vector3 lastPos, lastChildPos;
+    private Vector3 lastPos;
     private Quaternion lastRot, lastChildRot;
+    [Tooltip("Sono le transform del Player padre e della MainCamera ")]
     public Transform myTransform, myChildTransform;
 
     [SerializeField]
+    [Tooltip("Piú é alto il valore maggiore sará la velocitá di sync")]
     private float lerpRate = 10;
     [SerializeField]
+    [Tooltip("Valore di soglia minimo in cui far scattare la sync della posizione")]
     private float posThreshold = 0.5f;
     [SerializeField]
+    [Tooltip("Valore di sogglia minima per far scattare la sync della rotazione ")]
     private float rotThreshold = 5;
 
-    // Use this for initialization
     void Start()
     {
         //myTransform = transform;
         //myChildTransform = myTransform.GetComponentInChildren<Transform>();
-
-        //Debug.LogWarning("The name of the child is: " + myChildTransform.gameObject.name);
     }
 
     // Update is called once per frame
@@ -49,6 +49,7 @@ public class TransformMotion : NetworkBehaviour
         LerpMotion();
     }
 
+    // Il command del server per far sincronizzare la transform del parent
     [Command]
     void Cmd_ParentPositionToServer(Vector3 _pos, float _y, float _x)
     {
@@ -57,6 +58,7 @@ public class TransformMotion : NetworkBehaviour
         syncXRot = _x;
     }
 
+    // Il commande del server per far sincronizzare la rotazione del figlio (in questo caso la Main Camera)
     [Command]
     void Cmd_ChildRotationToServer(float _childY, float _childX)
     {
@@ -77,7 +79,7 @@ public class TransformMotion : NetworkBehaviour
                 lastRot = myTransform.rotation;
             }
 
-            if (Vector3.Distance(myChildTransform.position, lastChildPos) > posThreshold || Quaternion.Angle(myChildTransform.rotation, lastChildRot) > rotThreshold)
+            if (Quaternion.Angle(myChildTransform.rotation, lastChildRot) > rotThreshold)
             {
                 Cmd_ChildRotationToServer(myChildTransform.localEulerAngles.y, myChildTransform.localEulerAngles.x);
 
@@ -91,14 +93,15 @@ public class TransformMotion : NetworkBehaviour
     {
         if (!hasAuthority)
         {
+
+            // Lerpa il parent nella posizione e rotazione in base all'ultima transform ricevuta
             myTransform.position = Vector3.Lerp(myTransform.transform.position, syncPos, Time.deltaTime * lerpRate);
             Vector3 newRot = new Vector3(syncXRot, syncYRot, 0);
             myTransform.rotation = Quaternion.Lerp(myTransform.rotation, Quaternion.Euler(newRot), Time.deltaTime * lerpRate);
 
-
+            // Lerpra il figlio con l'ultimo valore di rotazione disponibile
             Vector3 newChildRot = new Vector3(syncChildXRot, syncChildYRot, 0);
             myChildTransform.rotation = Quaternion.Lerp(myChildTransform.rotation, Quaternion.Euler(newChildRot), Time.deltaTime * lerpRate);
-
         }
     }
 }

@@ -8,10 +8,10 @@ namespace UnityEngine.Networking
     [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 
     public class CustomNetworkManagerHUD : MonoBehaviour
-
     {
-
-        public NetworkManager manager;
+        [Tooltip("Qui puoi settare l'IP del server a cui far collegare il client")]
+        public string customIpAddress;
+        private NetworkManager manager;
 
         [SerializeField] public bool showGUI = true;
 
@@ -28,7 +28,7 @@ namespace UnityEngine.Networking
         void Awake()
         {
             manager = GetComponent<NetworkManager>();
-            manager.networkAddress = ("192.168.1.187");
+            manager.networkAddress = customIpAddress;
 #if UNITY_ANDROID
 
             manager.StartClient();
@@ -38,20 +38,16 @@ namespace UnityEngine.Networking
 
 #if UNITY_EDITOR
 
-            //manager.StartHost();
-            
-            //Debug.Log("Sono su PC e faccio partire come Host");
-            //Debug.Log("L'IP del PC è " + manager.networkAddress);
+            //manager.StartServer();
 #endif
         }
 
 
-        void Update()
+        private void Update()
         {
 
             if (!showGUI)
                 return;
-
 
             if (!NetworkClient.active && !NetworkServer.active && manager.matchMaker == null)
             {
@@ -79,7 +75,7 @@ namespace UnityEngine.Networking
         }
 
 
-        void OnGUI()
+        private void OnGUI()
         {
             if (!showGUI)
                 return;
@@ -142,7 +138,6 @@ namespace UnityEngine.Networking
                 ypos += spacing;
             }
 
-
             if (NetworkServer.active || NetworkClient.active)
             {
                 if (GUI.Button(new Rect(xpos, ypos, 200, 20), "Stop (X)"))
@@ -152,7 +147,7 @@ namespace UnityEngine.Networking
                 ypos += spacing;
             }
 
-            
+           
             if (!NetworkServer.active && !NetworkClient.active)
             {
                 ypos += 10;
@@ -184,7 +179,6 @@ namespace UnityEngine.Networking
                             ypos += spacing;
 
                             ypos += 10;
-
 
                             if (GUI.Button(new Rect(xpos, ypos, 200, 20), "Find Internet Match"))
                             {
