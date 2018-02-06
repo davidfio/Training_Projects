@@ -28,13 +28,13 @@ public class TransformMotion : NetworkBehaviour
 
     [SerializeField]
     [Tooltip("Piú é alto il valore maggiore sará la velocitá di sync")]
-    private float lerpRate = 10;
+    private float lerpRate = 20;
     [SerializeField]
     [Tooltip("Valore di soglia minimo in cui far scattare la sync della posizione")]
-    private float posThreshold = 0.5f;
+    private float posThreshold = 0.1f;
     [SerializeField]
-    [Tooltip("Valore di sogglia minima per far scattare la sync della rotazione ")]
-    private float rotThreshold = 5;
+    [Tooltip("Valore di soglia minima per far scattare la sync della rotazione ")]
+    private float rotThreshold = 1;
 
     void Start()
     {
