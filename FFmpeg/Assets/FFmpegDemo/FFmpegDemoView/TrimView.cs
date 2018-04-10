@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace FFmpeg.Demo
 {
 	public class TrimView : MonoBehaviour
 	{
         TrimData config = new TrimData();
+        public Text pathText;
 
 		//------------------------------
 
@@ -17,7 +19,8 @@ namespace FFmpeg.Demo
 
 		public void OnInputPath(string fullPath)
 		{
-            config.inputPath = fullPath;
+            //config.inputPath = fullPath;
+            config.inputPath = pathText.text;
 		}
 
 		public void OnStartTime(string time)
@@ -27,7 +30,7 @@ namespace FFmpeg.Demo
 
 		public void OnOutputPath(string fullPath)
 		{
-            config.outputPath = fullPath;
+            config.outputPath = pathText.text + "new video.mp4";
 		}
 
 		public void OnDuration(string duration)
@@ -40,9 +43,15 @@ namespace FFmpeg.Demo
 		public void OnTrim()
 		{
             FFmpegCommands.Trim(config);
-			gameObject.SetActive(false);
-		}
+            
+            gameObject.SetActive(false);
+        }
 
-		//------------------------------
-	}
+        public void PlayNewVideo()
+        {
+            Handheld.PlayFullScreenMovie("file://" + pathText.text + "new video.mp4");
+        }
+
+        //------------------------------
+    }
 }
