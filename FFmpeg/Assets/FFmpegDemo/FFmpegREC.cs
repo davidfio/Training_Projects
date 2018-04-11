@@ -125,7 +125,7 @@ namespace FFmpeg.Demo.REC
             }
         }
 
-        IEnumerator SaveImages()
+        public IEnumerator SaveImages()
         {
             onOutput("Captured resolution: " + width + " - " + height + "\n");
             onOutput("Actual FPS: " + actualFPS.ToString("00.00") + "\n");
