@@ -4,4 +4,34 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/FantomPlugin/Demo/Scenes/DialogExTest.unity
+    guid: aef1baeda3e813d4b8cf77a913210562
+  - enabled: 1
+    path: Assets/FantomPlugin/Demo/Scenes/DialogTest.unity
+    guid: cab1883a5a58f8c4abfcd058fa812abf
+  - enabled: 1
+    path: Assets/FantomPlugin/Demo/Scenes/ExternalStorageTest.unity
+    guid: e94e21b9776c42044890804ab698b80c
+  - enabled: 1
+    path: Assets/FantomPlugin/Demo/Scenes/GalleryPickTest.unity
+    guid: ba51c5f5e53cf69459e8a50bfbbeddad
+  - enabled: 1
+    path: Assets/FantomPlugin/Demo/Scenes/PinchSwipeTest.unity
+    guid: 4da95585ed0817447ac1bd50335aaefc
+  - enabled: 1
+    path: Assets/FantomPlugin/Demo/Scenes/PluginTest.unity
+    guid: 2051da918c888c446b4eb71a97dcff00
+  - enabled: 1
+    path: Assets/FantomPlugin/Demo/Scenes/SensorTest.unity
+    guid: ebe0ed94304478e41ad7988a8d8310c0
+  - enabled: 1
+    path: Assets/FantomPlugin/Demo/Scenes/SettingsTest1.unity
+    guid: 0a298615c8eeb0d40b2d0cbb00feadd9
+  - enabled: 1
+    path: Assets/FantomPlugin/Demo/Scenes/SettingsTest2.unity
+    guid: 125edfad20f6122489ce18daff207634
+  - enabled: 1
+    path: Assets/FantomPlugin/Demo/Scenes/SpeechRecognizerTest.unity
+    guid: 5e048b3a449b76349a587b48167046f9
